@@ -78,7 +78,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchBlog = async () => {
-      const response = await axios.get("http://localhost:5000/blogs");
+      const response = await axios.get("http://localhost:8080/blogs");
       setBlogs(response.data);
     };
     fetchBlog();
