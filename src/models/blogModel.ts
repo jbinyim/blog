@@ -3,6 +3,8 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IBlog extends Document {
   title: string;
   text: string;
+  img: string;
+  youtube: string;
 }
 
 const blogSchema: Schema = new Schema(
@@ -13,7 +15,12 @@ const blogSchema: Schema = new Schema(
     },
     text: {
       type: String,
-      required: true,
+    },
+    img: {
+      type: String,
+    },
+    youtube: {
+      type: String,
     },
   },
   {
