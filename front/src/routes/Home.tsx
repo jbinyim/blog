@@ -84,8 +84,8 @@ const Home = () => {
     fetchBlog();
   }, []);
 
-  const onClickSeemore = () => {
-    navigate("/seemore");
+  const onClickSeemore = (blogId: string) => {
+    navigate(`/seemore/${blogId}`);
   };
 
   return (
@@ -95,7 +95,7 @@ const Home = () => {
       </BtnBox>
       <CradBox>
         {blogs.map((item, idx) => (
-          <Card key={idx} onClick={onClickSeemore}>
+          <Card key={idx} onClick={() => onClickSeemore(item._id)}>
             <Img src={item.img} alt="itemImg" />
             <TextBox>
               <Title>{item.title}</Title>

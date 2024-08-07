@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add" element={<AddBlog />} />
-        <Route path="/seemore" element={<Seemore />} />
+        <Route path="/seemore/:id" element={<Seemore />} />
       </Routes>
     </BrowserRouter>
   );
