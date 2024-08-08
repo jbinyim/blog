@@ -23,3 +23,31 @@ export const getSeeBlog = expressAsyncHandler(async (req, res) => {
   const seeBlog = await Blog.findById(req.params.id);
   res.status(200).json(seeBlog);
 });
+
+// 블로그 수정하기
+export const putEditBlog = expressAsyncHandler(async (req, res) => {
+  const blog = await Blog.findById(req.params.id);
+
+  if (blog) {
+    const { title, text, img, youtube } = req.body;
+    blog.title = title;
+    blog.text = text;
+    blog.img = img;
+    blog.youtube = youtube;
+
+    await blog.save();
+
+    res.status(200).json(blog);
+  } else {
+    res.status(404).json({ message: "블로그를 찾을 수 없습니다." });
+  }
+});
+
+// 블로그 삭제하기
+export const deleteBlog = expressAsyncHandler(async (req, res) => {
+  const blog = await Blog.findById(req.params.id);
+
+  await Blog.deleteOne({ _id: req.params.id });
+
+  res.status(200).json(blog);
+});

@@ -6,6 +6,7 @@ import Header from "./components/headers/Header";
 import Aside from "./components/headers/Aside";
 import AddBlog from "./routes/AddBlog";
 import Seemore from "./routes/Seemore";
+import Edit from "./routes/Edit";
 
 const FixedBox = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/add" element={<AddBlog />} />
         <Route path="/seemore/:id" element={<Seemore />} />
+        <Route path="/edit/:id" element={<Edit />} />
       </Routes>
     </BrowserRouter>
   );

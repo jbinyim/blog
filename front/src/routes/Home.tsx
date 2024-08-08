@@ -2,30 +2,14 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { Container } from "../styles/common/commonStyled";
-
-const BtnBox = styled.div`
-  padding: 2% 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
-  a {
-    width: 85px;
-    height: 36px;
-    font-size: 14px;
-    line-height: 20px;
-    padding: 5px;
-    color: #fff;
-    border: 1px solid ${({ theme }) => theme.colors.gray};
-    border-radius: 6px;
-    background: ${({ theme }) => theme.colors.brown};
-  }
-`;
+import { Container, BtnBox } from "../styles/common/commonStyled";
 
 const CradBox = styled.ul`
   padding: 2% 0;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 30px;
-  @media ${({ theme }) => theme.mediaSize.xxl} {
+  /* gap: 30px; */
+  @media ${({ theme }) => theme.mediaSize.xl} {
     grid-template-columns: repeat(3, 1fr);
   }
 `;

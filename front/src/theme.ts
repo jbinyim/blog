@@ -5,6 +5,8 @@ const colors = {
 
 const mediaSize = {
   xxl: "screen and (max-width: 1450px)",
+  xl: "screen and (max-width: 1280px)",
+  l: "screen and (max-width: 1080px)",
 };
 
 const theme = {
