@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Container } from "../styles/common/commonStyled";
 import { useMatch, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Box, Inner, Label } from "../styles/addEdit/addEditStyled";
+import { Box, Inner, Label, SubmitBtn } from "../styles/addEdit/addEditStyled";
 import { BtnBox } from "../styles/common/commonStyled";
 
 const Edit = () => {
@@ -71,14 +71,6 @@ const Edit = () => {
               onChange={(e) => setTitle(e.target.value)}
             />
           </Label>
-          <Label>
-            내용
-            <input
-              type="text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            />
-          </Label>
           <Label htmlFor="">
             이미지 주소
             <input
@@ -95,7 +87,15 @@ const Edit = () => {
               onChange={(e) => setYoutube(e.target.value)}
             />
           </Label>
-          <button type="submit">수정하기</button>
+          <Label>
+            내용
+            <textarea
+              rows={20}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+          </Label>
+          <SubmitBtn type="submit">수정하기</SubmitBtn>
         </Inner>
       </Box>
     </Container>

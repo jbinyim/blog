@@ -1,24 +1,46 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useMatch } from "react-router-dom";
 import { Container, BtnBox } from "../styles/common/commonStyled";
 
 const CradBox = styled.ul`
   padding: 2% 0;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  /* gap: 30px; */
-  @media ${({ theme }) => theme.mediaSize.xl} {
+  gap: 30px;
+  @media screen and (max-width: 1750px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media ${({ theme }) => theme.mediaSize.xxl} {
     grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media screen and (max-width: 1150px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 870px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
 const Card = styled.li`
-  width: 250px;
+  max-width: 250px;
+  width: 100%;
   height: 400px;
   box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  overflow: hidden;
   cursor: pointer;
+  @media screen and (max-width: 870px) {
+    max-width: 100%;
+    height: 500px;
+  }
+  @media ${({ theme }) => theme.mediaSize.m} {
+    width: 70%;
+    height: 550px;
+    margin: 0 auto;
+  }
 `;
 
 const Img = styled.img`
@@ -26,6 +48,9 @@ const Img = styled.img`
   height: 70%;
   object-fit: cover;
   object-position: center;
+  @media ${({ theme }) => theme.mediaSize.m} {
+    height: 80%;
+  }
 `;
 
 const TextBox = styled.div`
@@ -59,6 +84,7 @@ interface IBlog {
 const Home = () => {
   const [blogs, setBlogs] = useState<IBlog[]>([]);
   const navigate = useNavigate();
+  const matchId = useMatch("/:search");
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -68,6 +94,11 @@ const Home = () => {
     fetchBlog();
   }, []);
 
+  const searchTerm = matchId?.params.search?.toLowerCase();
+  const filteredBlogs = searchTerm
+    ? blogs.filter((item) => item.title.toLowerCase().includes(searchTerm))
+    : blogs;
+
   const onClickSeemore = (blogId: string) => {
     navigate(`/seemore/${blogId}`);
   };
@@ -75,10 +106,11 @@ const Home = () => {
   return (
     <Container>
       <BtnBox>
+        <p>전체 게시글</p>
         <Link to={"/add"}>New</Link>
       </BtnBox>
       <CradBox>
-        {blogs.map((item, idx) => (
+        {filteredBlogs.map((item, idx) => (
           <Card key={idx} onClick={() => onClickSeemore(item._id)}>
             <Img src={item.img} alt="itemImg" />
             <TextBox>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -10,6 +10,10 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   left: 296px;
+  @media ${({ theme }) => theme.mediaSize.m} {
+    width: 100%;
+    left: 0;
+  }
 `;
 
 const Inner = styled.div`
@@ -34,14 +38,15 @@ const SearchIcon = styled.svg`
   top: 50%;
   left: 5px;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   fill: #000;
 `;
 
 const Input = styled.input`
   width: 200px;
   height: 25px;
+  line-height: 25px;
   padding-left: 30px;
   border: none;
   border-radius: 16px;
@@ -50,6 +55,13 @@ const Input = styled.input`
 `;
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === "Enter" || e.code === "NumpadEnter") {
+      navigate(`/${e.currentTarget.value}`);
+    }
+  };
   return (
     <Container>
       <Inner>
@@ -58,7 +70,7 @@ const Header = () => {
           <SearchIcon viewBox="0 -960 960 960">
             <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
           </SearchIcon>
-          <Input type="text" />
+          <Input type="text" placeholder="검색.." onKeyDown={handleSearch} />
         </SearchBox>
       </Inner>
     </Container>

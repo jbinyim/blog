@@ -9,7 +9,7 @@ import { BtnBox } from "../styles/common/commonStyled";
 const Inner = styled.div`
   width: 100%;
   height: 500px;
-  /* padding-top: 30px; */
+  margin-top: 15px;
 `;
 
 const VideoBox = styled.div`
@@ -17,11 +17,37 @@ const VideoBox = styled.div`
     width: 80%;
     height: 720px;
     margin: 0 auto;
+    border-radius: 30px;
+    overflow: hidden;
     @media ${({ theme }) => theme.mediaSize.xl} {
       width: 100%;
       height: 500px;
     }
   }
+`;
+
+const Title = styled.h2`
+  font-size: 25px;
+  width: 80%;
+  margin: 20px auto 0;
+`;
+
+const TextBox = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  background: ${({ theme }) => theme.colors.gray};
+  padding: 2%;
+  margin-top: 20px;
+  border-radius: 20px;
+`;
+
+const Date = styled.p`
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+`;
+
+const Text = styled.p`
+  margin-top: 10px;
 `;
 
 interface IBlog {
@@ -47,6 +73,15 @@ const Seemore = () => {
     fetchSeeMore();
   }, []);
 
+  const formtText = (text: string) => {
+    return text.split("\n").map((line, idx) => (
+      <span key={idx}>
+        {line}
+        <br />
+      </span>
+    ));
+  };
+
   const opts: YouTubeProps[`opts`] = {
     width: "100%",
     height: "100%",
@@ -57,13 +92,18 @@ const Seemore = () => {
   return (
     <Container>
       <BtnBox>
+        <p>{seeMore.title}</p>
         <Link to={`/edit/${seeMore._id}`}>Edit</Link>
       </BtnBox>
       <Inner>
         <VideoBox>
           <YouTube videoId={seeMore.youtube} opts={opts} />
         </VideoBox>
-        <h2>{seeMore.title}</h2>
+        <Title>{seeMore.title}</Title>
+        <TextBox>
+          <Date>{seeMore.updatedAt.slice(0, 10)}</Date>
+          <Text>{formtText(seeMore.text)}</Text>
+        </TextBox>
       </Inner>
     </Container>
   );
