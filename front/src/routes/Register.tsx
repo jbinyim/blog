@@ -101,6 +101,7 @@ const Register = () => {
           <RegisterBtn>회원가입 하기</RegisterBtn>
         </Form>
       </Inner>
+      Z
     </Container>
   );
 };
