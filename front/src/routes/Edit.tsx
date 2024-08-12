@@ -17,7 +17,7 @@ const Edit = () => {
   useEffect(() => {
     const fetchSeeMore = async () => {
       const response = await axios.get(
-        `http://localhost:8080/edit/${matchId?.params.id}`
+        `http://localhost:8080/tail/edit/${matchId?.params.id}`
       );
 
       setTitle(response.data.title);
@@ -33,7 +33,7 @@ const Edit = () => {
     try {
       const editBlog = { title, text, img, youtube };
       const response = await axios.put(
-        `http://localhost:8080/edit/${matchId?.params.id}`,
+        `http://localhost:8080/tail/edit/${matchId?.params.id}`,
         editBlog
       );
       console.log("수정성공", response.data);
@@ -47,7 +47,9 @@ const Edit = () => {
   const handleDelete = async () => {
     if (window.confirm("정말 삭제하겠습니까?")) {
       try {
-        await axios.delete(`http://localhost:8080/edit/${matchId?.params.id}`);
+        await axios.delete(
+          `http://localhost:8080/tail/edit/${matchId?.params.id}`
+        );
         navigate("/");
       } catch (err) {
         console.log("삭제실패", err);

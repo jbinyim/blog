@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Container = styled.div`
   max-width: 296px;
@@ -42,6 +42,17 @@ const MyId = styled.p`
   line-height: 1.5;
 `;
 
+const IconBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+`;
+
+const Icon = styled.img`
+  width: 25px;
+`;
+
 const MemberBox = styled.div`
   display: flex;
   align-items: center;
@@ -55,10 +66,23 @@ const MemberBox = styled.div`
 
 const Aside = () => {
   const navigate = useNavigate();
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    alert("로그아웃했습니다.");
+    window.location.href = "/";
+  };
 
   const goToPage = (link: string) => {
     navigate(`/member/${link}`);
   };
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+  }, []);
 
   return (
     <Container>
@@ -68,15 +92,34 @@ const Aside = () => {
             src="https://avatars.githubusercontent.com/u/110534614?v=4"
             alt="profile"
           />
-          <Nickname>꼬리</Nickname>
-          <MyId>Tail</MyId>
+          <Nickname>YJBin</Nickname>
+          <MyId>jbinyim</MyId>
         </div>
-        <div>
-          <p>깃허브</p>
-          <p>유튜브</p>
-        </div>
+        <IconBox>
+          <Link
+            to={"https://github.com/jbinyim"}
+            target="__blank"
+            title="깃허브"
+          >
+            <Icon
+              src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+              alt="github"
+            />
+          </Link>
+          <Link to={"https://www.youtube.com/@user-ggolovely"} target="__blank">
+            <Icon
+              src="https://cdn-icons-png.flaticon.com/256/1384/1384060.png"
+              alt="youtube"
+            />
+          </Link>
+        </IconBox>
         <MemberBox>
-          <p>로그인</p>
+          {token ? (
+            <p onClick={handleLogout}>로그아웃</p>
+          ) : (
+            <p onClick={() => goToPage("login")}>로그인</p>
+          )}
+
           <p onClick={() => goToPage("register")}>회원가입</p>
         </MemberBox>
       </Inner>

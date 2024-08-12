@@ -15,7 +15,7 @@ const AddBlog = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/blogs", {
+      const response = await axios.post("http://localhost:8080/tail/blogs", {
         title,
         text,
         img,

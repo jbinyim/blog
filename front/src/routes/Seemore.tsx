@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Container } from "../styles/common/commonStyled";
 import axios from "axios";
-import { useMatch, Link } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 import YouTube, { YouTubeProps } from "react-youtube";
-import { BtnBox } from "../styles/common/commonStyled";
+
+import BtnLink from "../components/component/BtnLink";
 
 const Inner = styled.div`
   width: 100%;
@@ -66,7 +67,7 @@ const Seemore = () => {
   useEffect(() => {
     const fetchSeeMore = async () => {
       const response = await axios.get(
-        `http://localhost:8080/seemore/${matchId?.params.id}`
+        `http://localhost:8080/tail/seemore/${matchId?.params.id}`
       );
       setSeeMore(response.data);
     };
@@ -91,10 +92,12 @@ const Seemore = () => {
 
   return (
     <Container>
-      <BtnBox>
-        <p>{seeMore.title}</p>
-        <Link to={`/edit/${seeMore._id}`}>Edit</Link>
-      </BtnBox>
+      <BtnLink
+        text={seeMore.title}
+        link={`edit/${seeMore._id}`}
+        btnName="Edit"
+      />
+
       <Inner>
         <VideoBox>
           <YouTube videoId={seeMore.youtube} opts={opts} />

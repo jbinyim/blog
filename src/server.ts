@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 dbConnect();
 
-app.use("/", blogRoutes);
+app.use("/tail", blogRoutes);
 app.use("/member", memberRoutes);
 
 // app.get("/", (req, res) => {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { Link, useNavigate, useMatch } from "react-router-dom";
-import { Container, BtnBox } from "../styles/common/commonStyled";
+import { useNavigate, useMatch } from "react-router-dom";
+import { Container } from "../styles/common/commonStyled";
+import BtnLink from "../components/component/BtnLink";
 
 const CradBox = styled.ul`
   padding: 2% 0;
@@ -84,17 +85,17 @@ interface IBlog {
 const Home = () => {
   const [blogs, setBlogs] = useState<IBlog[]>([]);
   const navigate = useNavigate();
-  const matchId = useMatch("/:search");
+  const matchId = useMatch("/tail/:search");
 
   useEffect(() => {
     const fetchBlog = async () => {
-      const response = await axios.get("http://localhost:8080/blogs");
+      const response = await axios.get("http://localhost:8080/tail/blogs");
       setBlogs(response.data);
     };
     fetchBlog();
   }, []);
-
   const searchTerm = matchId?.params.search?.toLowerCase();
+
   const filteredBlogs = searchTerm
     ? blogs.filter((item) => item.title.toLowerCase().includes(searchTerm))
     : blogs;
@@ -105,10 +106,7 @@ const Home = () => {
 
   return (
     <Container>
-      <BtnBox>
-        <p>전체 게시글</p>
-        <Link to={"/add"}>New</Link>
-      </BtnBox>
+      <BtnLink text="전체 게시글" link="add" btnName="New" />
       <CradBox>
         {filteredBlogs.map((item, idx) => (
           <Card key={idx} onClick={() => onClickSeemore(item._id)}>

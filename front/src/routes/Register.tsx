@@ -1,36 +1,7 @@
-import Reactm, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
 import { Container } from "../styles/common/commonStyled";
+import { Inner, Form, Label, RegisterBtn } from "../styles/member/memberStyled";
 import axios from "axios";
-
-const Inner = styled.div`
-  height: calc(100vh - 48px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
-
-const Label = styled.label`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  input {
-    height: 30px;
-    padding: 0 3px;
-  }
-`;
-
-const RegisterBtn = styled.button`
-  height: 30px;
-  cursor: pointer;
-`;
 
 const Register = () => {
   const [id, setId] = useState("");
@@ -67,11 +38,10 @@ const Register = () => {
     }
   };
 
-  console.log(id === "");
-
   return (
     <Container>
       <Inner>
+        <h3>회원가입</h3>
         <Form onSubmit={handleSubmit}>
           <Label>
             아이디{" "}
@@ -101,7 +71,6 @@ const Register = () => {
           <RegisterBtn>회원가입 하기</RegisterBtn>
         </Form>
       </Inner>
-      Z
     </Container>
   );
 };
